@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.mapper.ProductInventoryMapper">
+  <resultMap id="BaseResultMap" type="com.erp.model.ProductInventory">
+    <id column="p_inventory_id" jdbcType="VARCHAR" property="pInventoryId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="inventory_number" jdbcType="VARCHAR" property="inventoryNumber" />
+    <result column="outbound_status" jdbcType="VARCHAR" property="outboundStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    p_inventory_id, product_id, inventory_number, outbound_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_inventory
+    where p_inventory_id = #{pInventoryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from product_inventory
+    where p_inventory_id = #{pInventoryId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.erp.model.ProductInventory">
+    insert into product_inventory (p_inventory_id, product_id, inventory_number, 
+      outbound_status)
+    values (#{pInventoryId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{inventoryNumber,jdbcType=VARCHAR}, 
+      #{outboundStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.model.ProductInventory">
+    insert into product_inventory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pInventoryId != null">
+        p_inventory_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="inventoryNumber != null">
+        inventory_number,
+      </if>
+      <if test="outboundStatus != null">
+        outbound_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pInventoryId != null">
+        #{pInventoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="inventoryNumber != null">
+        #{inventoryNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="outboundStatus != null">
+        #{outboundStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.model.ProductInventory">
+    update product_inventory
+    <set>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="inventoryNumber != null">
+        inventory_number = #{inventoryNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="outboundStatus != null">
+        outbound_status = #{outboundStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where p_inventory_id = #{pInventoryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.model.ProductInventory">
+    update product_inventory
+    set product_id = #{productId,jdbcType=VARCHAR},
+      inventory_number = #{inventoryNumber,jdbcType=VARCHAR},
+      outbound_status = #{outboundStatus,jdbcType=VARCHAR}
+    where p_inventory_id = #{pInventoryId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryProductInventory" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from product_inventory
+
+	</select>
+	<select id="querySomeProduct" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from product_inventory
+		where
+		product_id = #{id,jdbcType=VARCHAR}
+
+	</select>
+	<delete id="deleteProductInventory" parameterType="java.lang.String">
+		delete from product_inventory
+		where product_id = #{productId,jdbcType=VARCHAR}
+	</delete>
+	<select id="queryOneProductInventory" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from product_inventory
+		where
+		product_id = #{productId,jdbcType=VARCHAR}
+
+	</select>
+</mapper>

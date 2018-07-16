@@ -1,0 +1,103 @@
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+
+	<!-- 工具过滤器，对POST请求自动转码，确保提交中文内容时不会出现？？？ -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- end -->
+
+	<!-- 对用户的登录信息进行检测，防止session超时时用户操作 -->
+	<filter>
+		<filter-name>MemberLoginFilter</filter-name>
+		<filter-class>kohgylw.filter.MemberLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MemberLoginFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<!-- end -->
+
+	<!-- 对关于权限模块的请求进行二次甄别 -->
+	<filter>
+		<filter-name>AuthModuleRequestFilter</filter-name>
+		<filter-class>kohgylw.filter.AuthModuleRequestFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthModuleRequestFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<!-- end -->
+
+	<!-- 配置spring配置文件所在的路径 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring.xml</param-value>
+	</context-param>
+	<!-- end -->
+
+	<!-- spring MVC 核心控制器 -->
+	<!-- 配置spring MVC的核心控制器，它负责分发请求 -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<!-- 这个参数的意思是，不使用默认的spring配置文件路径，而改用上面配置的地址 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value></param-value>
+		</init-param>
+		<!-- 配置加载的时机，只要有数字，那么tomcat启动时便直接加载 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- 配置核心控制器所要拦截的请求，一般来说，直接拦截所有请求 -->
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.ajax</url-pattern>
+	</servlet-mapping>
+	<!-- end -->
+
+	<!-- spring web 的IOC初始化监听器 -->
+	<!-- 加载spring的上下文，是得spring的IOC能生效 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<!-- end -->
+
+	<!-- 用于初始化在线人数统计的字段 -->
+	<listener>
+		<listener-class>kohgylw.listener.InitOnlineMemberListener
+		</listener-class>
+	</listener>
+	<!-- end -->
+
+	<!-- 用于记录在线人数的监听器 -->
+	<listener>
+		<listener-class>kohgylw.listener.CountLoginMemberNumListener
+		</listener-class>
+	</listener>
+	<!-- end -->
+
+	<!-- 配置欢迎页面 -->
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+	<!-- end 欢迎页面 -->
+
+</web-app>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.mapper.WorkRecordListMapper">
+  <resultMap id="BaseResultMap" type="com.erp.model.WorkRecordList">
+    <id column="record_List_id" jdbcType="VARCHAR" property="recordListId" />
+    <result column="eme_id" jdbcType="VARCHAR" property="emeId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="record_Time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="record_Type" jdbcType="VARCHAR" property="recordType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    record_List_id, eme_id, title, record_Time, record_Type, content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from work_record_list
+    where record_List_id = #{recordListId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from work_record_list
+    where record_List_id = #{recordListId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.erp.model.WorkRecordList">
+    insert into work_record_list (record_List_id, eme_id, title, 
+      record_Time, record_Type, content
+      )
+    values (#{recordListId,jdbcType=VARCHAR}, #{emeId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{recordTime,jdbcType=TIMESTAMP}, #{recordType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.model.WorkRecordList">
+    insert into work_record_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordListId != null">
+        record_List_id,
+      </if>
+      <if test="emeId != null">
+        eme_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="recordTime != null">
+        record_Time,
+      </if>
+      <if test="recordType != null">
+        record_Type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordListId != null">
+        #{recordListId,jdbcType=VARCHAR},
+      </if>
+      <if test="emeId != null">
+        #{emeId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordType != null">
+        #{recordType,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.model.WorkRecordList">
+    update work_record_list
+    <set>
+      <if test="emeId != null">
+        eme_id = #{emeId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        record_Time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordType != null">
+        record_Type = #{recordType,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_List_id = #{recordListId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.model.WorkRecordList">
+    update work_record_list
+    set eme_id = #{emeId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      record_Time = #{recordTime,jdbcType=TIMESTAMP},
+      record_Type = #{recordType,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR}
+    where record_List_id = #{recordListId,jdbcType=VARCHAR}
+  </update>
+</mapper>

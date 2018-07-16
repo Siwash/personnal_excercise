@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.PositionAuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.company.item.model.PositionAuthority">
+    <result column="position_authority_id" jdbcType="VARCHAR" property="positionAuthorityId" />
+    <result column="position_id" jdbcType="INTEGER" property="positionId" />
+    <result column="authority_id" jdbcType="INTEGER" property="authorityId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.company.item.model.PositionAuthority">
+    insert into position_authority (position_authority_id, position_id, 
+      authority_id)
+    values (#{positionAuthorityId,jdbcType=VARCHAR}, #{positionId,jdbcType=INTEGER}, 
+      #{authorityId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.item.model.PositionAuthority">
+    insert into position_authority
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="positionAuthorityId != null">
+        position_authority_id,
+      </if>
+      <if test="positionId != null">
+        position_id,
+      </if>
+      <if test="authorityId != null">
+        authority_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="positionAuthorityId != null">
+        #{positionAuthorityId,jdbcType=VARCHAR},
+      </if>
+      <if test="positionId != null">
+        #{positionId,jdbcType=INTEGER},
+      </if>
+      <if test="authorityId != null">
+        #{authorityId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

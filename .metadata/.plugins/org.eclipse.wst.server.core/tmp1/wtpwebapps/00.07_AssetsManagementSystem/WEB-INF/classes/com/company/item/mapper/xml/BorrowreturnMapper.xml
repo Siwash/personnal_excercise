@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.BorrowreturnMapper">
+	<resultMap id="BaseResultMap" type="com.company.item.model.Borrowreturn">
+		<id column="borrowreturn_id" jdbcType="VARCHAR" property="borrowreturnId" />
+		<result column="property_name" jdbcType="VARCHAR" property="propertyName" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="property_num" jdbcType="INTEGER" property="propertyNum" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="borrowreturn_state" jdbcType="VARCHAR"
+			property="borrowreturnState" />
+		<result column="borrowreturn_time" jdbcType="TIMESTAMP"
+			property="borrowreturnTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		borrowreturn_id, property_name, type, property_num,
+		user_name, borrowreturn_state,
+		borrowreturn_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from borrowreturn
+		where borrowreturn_id =
+		#{borrowreturnId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		borrowreturn
+		where borrowreturn_id = #{borrowreturnId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.company.item.model.Borrowreturn">
+		insert into borrowreturn
+		(borrowreturn_id, property_name, type,
+		property_num, user_name,
+		borrowreturn_state,
+		borrowreturn_time)
+		values
+		(#{borrowreturnId,jdbcType=VARCHAR},
+		#{propertyName,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR},
+		#{propertyNum,jdbcType=INTEGER},
+		#{userName,jdbcType=VARCHAR},
+		#{borrowreturnState,jdbcType=VARCHAR},
+		#{borrowreturnTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.company.item.model.Borrowreturn">
+		insert into borrowreturn
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="borrowreturnId != null">
+				borrowreturn_id,
+			</if>
+			<if test="propertyName != null">
+				property_name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="propertyNum != null">
+				property_num,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="borrowreturnState != null">
+				borrowreturn_state,
+			</if>
+			<if test="borrowreturnTime != null">
+				borrowreturn_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="borrowreturnId != null">
+				#{borrowreturnId,jdbcType=VARCHAR},
+			</if>
+			<if test="propertyName != null">
+				#{propertyName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="propertyNum != null">
+				#{propertyNum,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="borrowreturnState != null">
+				#{borrowreturnState,jdbcType=VARCHAR},
+			</if>
+			<if test="borrowreturnTime != null">
+				#{borrowreturnTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.company.item.model.Borrowreturn">
+		update borrowreturn
+		<set>
+			<if test="propertyName != null">
+				property_name = #{propertyName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="propertyNum != null">
+				property_num = #{propertyNum,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="borrowreturnState != null">
+				borrowreturn_state =
+				#{borrowreturnState,jdbcType=VARCHAR},
+			</if>
+			<if test="borrowreturnTime != null">
+				borrowreturn_time =
+				#{borrowreturnTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where borrowreturn_id = #{borrowreturnId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.company.item.model.Borrowreturn">
+		update
+		borrowreturn
+		set property_name = #{propertyName,jdbcType=VARCHAR},
+		type
+		= #{type,jdbcType=VARCHAR},
+		property_num =
+		#{propertyNum,jdbcType=INTEGER},
+		user_name =
+		#{userName,jdbcType=VARCHAR},
+		borrowreturn_state =
+		#{borrowreturnState,jdbcType=VARCHAR},
+		borrowreturn_time =
+		#{borrowreturnTime,jdbcType=TIMESTAMP}
+		where borrowreturn_id =
+		#{borrowreturnId,jdbcType=VARCHAR}
+	</update>
+
+
+	<select id="quaryBorrowReturn" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from borrowreturn
+		where property_name =
+		#{propertyName,jdbcType=VARCHAR} and type =
+		#{type,jdbcType=VARCHAR}
+		and user_name = #{userName,jdbcType=VARCHAR}
+	</select>
+	<!--查询所有流动单 -->
+	<select id="quaryAllBorrowreturn" resultMap="BaseResultMap" parameterType="com.company.item.model.Borrowreturn">
+		select
+		<include refid="Base_Column_List" />
+		from borrowreturn
+		<where>
+
+			<if test="propertyName != null and propertyName!='' ">
+				and property_name = #{propertyName,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null and type!='' ">
+				and type = #{type,jdbcType=VARCHAR}
+			</if>
+
+		</where>
+	</select>
+</mapper>

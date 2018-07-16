@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.PropertyMapper">
+	<resultMap id="BaseResultMap" type="com.company.item.model.Property">
+		<id column="property_id" jdbcType="VARCHAR" property="propertyId" />
+		<result column="property_name" jdbcType="VARCHAR" property="propertyName" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="bigtype_name" jdbcType="VARCHAR" property="bigtypeName" />
+		<result column="malltype_name" jdbcType="VARCHAR" property="malltypeName" />
+		<result column="property_num" jdbcType="INTEGER" property="propertyNum" />
+		<result column="broken_num" jdbcType="INTEGER" property="brokenNum" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		property_id, property_name, type, bigtype_name,
+		malltype_name, property_num,
+		broken_num
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from property
+		where property_id = #{propertyId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		property
+		where property_id = #{propertyId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.company.item.model.Property">
+		insert into property
+		(property_id, property_name, type,
+		bigtype_name, malltype_name,
+		property_num,
+		broken_num)
+		values (#{propertyId,jdbcType=VARCHAR},
+		#{propertyName,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR},
+		#{bigtypeName,jdbcType=VARCHAR}, #{malltypeName,jdbcType=VARCHAR},
+		#{propertyNum,jdbcType=INTEGER},
+		#{brokenNum,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.company.item.model.Property">
+		insert into property
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="propertyId != null">
+				property_id,
+			</if>
+			<if test="propertyName != null">
+				property_name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="bigtypeName != null">
+				bigtype_name,
+			</if>
+			<if test="malltypeName != null">
+				malltype_name,
+			</if>
+			<if test="propertyNum != null">
+				property_num,
+			</if>
+			<if test="brokenNum != null">
+				broken_num,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="propertyId != null">
+				#{propertyId,jdbcType=VARCHAR},
+			</if>
+			<if test="propertyName != null">
+				#{propertyName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="bigtypeName != null">
+				#{bigtypeName,jdbcType=VARCHAR},
+			</if>
+			<if test="malltypeName != null">
+				#{malltypeName,jdbcType=VARCHAR},
+			</if>
+			<if test="propertyNum != null">
+				#{propertyNum,jdbcType=INTEGER},
+			</if>
+			<if test="brokenNum != null">
+				#{brokenNum,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.company.item.model.Property">
+		update property
+		<set>
+			<if test="propertyName != null">
+				property_name = #{propertyName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="bigtypeName != null">
+				bigtype_name = #{bigtypeName,jdbcType=VARCHAR},
+			</if>
+			<if test="malltypeName != null">
+				malltype_name = #{malltypeName,jdbcType=VARCHAR},
+			</if>
+			<if test="propertyNum != null">
+				property_num = #{propertyNum,jdbcType=INTEGER},
+			</if>
+			<if test="brokenNum != null">
+				broken_num = #{brokenNum,jdbcType=INTEGER},
+			</if>
+		</set>
+		where property_id = #{propertyId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.company.item.model.Property">
+		update property
+		set property_name = #{propertyName,jdbcType=VARCHAR},
+		type =
+		#{type,jdbcType=VARCHAR},
+		bigtype_name =
+		#{bigtypeName,jdbcType=VARCHAR},
+		malltype_name =
+		#{malltypeName,jdbcType=VARCHAR},
+		property_num =
+		#{propertyNum,jdbcType=INTEGER},
+		broken_num =
+		#{brokenNum,jdbcType=INTEGER}
+		where property_id =
+		#{propertyId,jdbcType=VARCHAR}
+	</update>
+
+	<!--靠名字查库存 -->
+	<select id="quaryPropertyByName" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from property
+		where property_name = #{propertyName,jdbcType=VARCHAR}
+		and type =
+		#{type,jdbcType=VARCHAR}
+	</select>
+
+
+	<!--靠名字查资产 -->
+	<select id="quaryPerpertysByPropertyName" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from property
+		where property_name = #{propertyName,jdbcType=VARCHAR}
+	</select>
+
+
+	<!--查询所有资产 -->
+	<select id="quaryAllProperty" parameterType="com.company.item.model.Property"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from property
+		<where>
+
+			<if test="propertyName != null and propertyName!='' ">
+				and property_name = #{propertyName,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null and type!='' ">
+				and type = #{type,jdbcType=VARCHAR}
+			</if>
+			<if test="bigtypeName != null and bigtypeName!='' ">
+				and bigtype_name = #{bigtypeName,jdbcType=VARCHAR}
+			</if>
+			<if test="malltypeName != null and malltypeName!='' ">
+				and malltype_name = #{malltypeName,jdbcType=VARCHAR}
+			</if>
+
+		</where>
+	</select>
+
+
+	<!--靠大类查资产 -->
+	<select id="quaryPropertyByBigtypeName" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from property
+		where bigtype_name = #{bigtypeName,jdbcType=VARCHAR}
+	</select>
+
+
+	<!--靠小类查资产 -->
+	<select id="quaryPropertyByMalltypeName" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from property
+		where malltype_name =
+		#{malltypeName,jdbcType=VARCHAR}
+	</select>
+</mapper>

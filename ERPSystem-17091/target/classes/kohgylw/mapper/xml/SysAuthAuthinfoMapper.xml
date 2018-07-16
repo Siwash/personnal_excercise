@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kohgylw.mapper.SysAuthAuthinfoMapper">
+  <resultMap id="BaseResultMap" type="kohgylw.model.SysAuthAuthinfo">
+    <result column="authinfo_id" jdbcType="VARCHAR" property="authinfoId" />
+    <result column="authinfo_name" jdbcType="VARCHAR" property="authinfoName" />
+    <result column="authinfo_style" jdbcType="VARCHAR" property="authinfoStyle" />
+    <result column="authinfo_url" jdbcType="VARCHAR" property="authinfoUrl" />
+  </resultMap>
+  <insert id="insert" parameterType="kohgylw.model.SysAuthAuthinfo">
+    insert into sys_auth_authinfo (authinfo_id, authinfo_name, authinfo_style, 
+      authinfo_url)
+    values (#{authinfoId,jdbcType=VARCHAR}, #{authinfoName,jdbcType=VARCHAR}, #{authinfoStyle,jdbcType=VARCHAR}, 
+      #{authinfoUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="kohgylw.model.SysAuthAuthinfo">
+    insert into sys_auth_authinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authinfoId != null">
+        authinfo_id,
+      </if>
+      <if test="authinfoName != null">
+        authinfo_name,
+      </if>
+      <if test="authinfoStyle != null">
+        authinfo_style,
+      </if>
+      <if test="authinfoUrl != null">
+        authinfo_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authinfoId != null">
+        #{authinfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="authinfoName != null">
+        #{authinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="authinfoStyle != null">
+        #{authinfoStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="authinfoUrl != null">
+        #{authinfoUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="queryByMemberAndStyle" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	SELECT * FROM sys_auth_authinfo right join sys_auth_memberauthtable on sys_auth_authinfo.authinfo_id=sys_auth_memberauthtable.authinfo_id where sys_auth_memberauthtable.memberinfo_id=#{memberinfoId,jdbcType=VARCHAR} and sys_auth_authinfo.authinfo_style=#{authstyleId,jdbcType=VARCHAR};
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap">
+  	select * from sys_auth_authinfo
+  </select>
+</mapper>

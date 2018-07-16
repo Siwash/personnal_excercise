@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.UserPositionMapper">
+  <resultMap id="BaseResultMap" type="com.company.item.model.UserPosition">
+    <id column="user_position_id" jdbcType="VARCHAR" property="userPositionId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="position_id" jdbcType="VARCHAR" property="positionId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_position_id, user_id, position_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_position
+    where user_position_id = #{userPositionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_position
+    where user_position_id = #{userPositionId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.company.item.model.UserPosition">
+    insert into user_position (user_position_id, user_id, position_id
+      )
+    values (#{userPositionId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{positionId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.item.model.UserPosition">
+    insert into user_position
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userPositionId != null">
+        user_position_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="positionId != null">
+        position_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userPositionId != null">
+        #{userPositionId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="positionId != null">
+        #{positionId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.company.item.model.UserPosition">
+    update user_position
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="positionId != null">
+        position_id = #{positionId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_position_id = #{userPositionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.company.item.model.UserPosition">
+    update user_position
+    set user_id = #{userId,jdbcType=VARCHAR},
+      position_id = #{positionId,jdbcType=VARCHAR}
+    where user_position_id = #{userPositionId,jdbcType=VARCHAR}
+  </update>
+  
+  <!--design by rpf  -->
+  <delete id="deleteByUserAndPosId" parameterType="java.lang.String">
+    delete from user_position
+    where position_id = #{positionId,jdbcType=VARCHAR}
+    and user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kohgylw.mapper.SysAuthAuthstyleMapper">
+  <resultMap id="BaseResultMap" type="kohgylw.model.SysAuthAuthstyle">
+    <result column="authstyle_id" jdbcType="VARCHAR" property="authstyleId" />
+    <result column="authstyle_name" jdbcType="VARCHAR" property="authstyleName" />
+    <result column="authstyle_icon" jdbcType="VARCHAR" property="authstyleIcon" />
+  </resultMap>
+  <insert id="insert" parameterType="kohgylw.model.SysAuthAuthstyle">
+    insert into sys_auth_authstyle (authstyle_id, authstyle_name, authstyle_icon
+      )
+    values (#{authstyleId,jdbcType=VARCHAR}, #{authstyleName,jdbcType=VARCHAR}, #{authstyleIcon,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="kohgylw.model.SysAuthAuthstyle">
+    insert into sys_auth_authstyle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authstyleId != null">
+        authstyle_id,
+      </if>
+      <if test="authstyleName != null">
+        authstyle_name,
+      </if>
+      <if test="authstyleIcon != null">
+        authstyle_icon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authstyleId != null">
+        #{authstyleId,jdbcType=VARCHAR},
+      </if>
+      <if test="authstyleName != null">
+        #{authstyleName,jdbcType=VARCHAR},
+      </if>
+      <if test="authstyleIcon != null">
+        #{authstyleIcon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="queryAll" resultMap="BaseResultMap">
+  	select * from sys_auth_authstyle
+  </select>
+</mapper>

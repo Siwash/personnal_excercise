@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kohgylw.mapper.SysMembermanageMemberinfoMapper">
+	<resultMap id="BaseResultMap" type="kohgylw.model.SysMembermanageMemberinfo">
+		<result column="memberinfo_id" jdbcType="VARCHAR" property="memberinfoId" />
+		<result column="memberinfo_loginid" jdbcType="VARCHAR"
+			property="memberinfoLoginid" />
+		<result column="memberinfo_pwd" jdbcType="VARCHAR" property="memberinfoPwd" />
+		<result column="memberinfo_state" jdbcType="VARCHAR" property="memberinfoState" />
+		<result column="memberinfo_name" jdbcType="VARCHAR" property="memberinfoName" />
+		<result column="memberinfo_sex" jdbcType="VARCHAR" property="memberinfoSex" />
+		<result column="memberinfo_entrydate" jdbcType="VARCHAR"
+			property="memberinfoEntrydate" />
+		<result column="memberinfo_address" jdbcType="VARCHAR"
+			property="memberinfoAddress" />
+		<result column="memberinfo_phone" jdbcType="VARCHAR" property="memberinfoPhone" />
+		<result column="memberinfo_email" jdbcType="VARCHAR" property="memberinfoEmail" />
+		<result column="memberinfo_othercontact" jdbcType="VARCHAR"
+			property="memberinfoOthercontact" />
+		<result column="memberinfo_education" jdbcType="VARCHAR"
+			property="memberinfoEducation" />
+		<result column="memberinfo_photo" jdbcType="VARCHAR" property="memberinfoPhoto" />
+		<result column="memberinfo_position" jdbcType="VARCHAR"
+			property="memberinfoPosition" />
+		<result column="memberinfo_number" jdbcType="VARCHAR" property="memberinfoNumber" />
+	</resultMap>
+	<insert id="insert" parameterType="kohgylw.model.SysMembermanageMemberinfo">
+		insert into
+		sys_membermanage_memberinfo (memberinfo_id, memberinfo_loginid,
+		memberinfo_pwd, memberinfo_state, memberinfo_name,
+		memberinfo_sex,
+		memberinfo_entrydate, memberinfo_address,
+		memberinfo_phone,
+		memberinfo_email, memberinfo_othercontact,
+		memberinfo_education,
+		memberinfo_photo, memberinfo_position,
+		memberinfo_number)
+		values
+		(#{memberinfoId,jdbcType=VARCHAR},
+		#{memberinfoLoginid,jdbcType=VARCHAR},
+		#{memberinfoPwd,jdbcType=VARCHAR},
+		#{memberinfoState,jdbcType=VARCHAR},
+		#{memberinfoName,jdbcType=VARCHAR},
+		#{memberinfoSex,jdbcType=VARCHAR},
+		#{memberinfoEntrydate,jdbcType=VARCHAR},
+		#{memberinfoAddress,jdbcType=VARCHAR},
+		#{memberinfoPhone,jdbcType=VARCHAR},
+		#{memberinfoEmail,jdbcType=VARCHAR},
+		#{memberinfoOthercontact,jdbcType=VARCHAR},
+		#{memberinfoEducation,jdbcType=VARCHAR},
+		#{memberinfoPhoto,jdbcType=VARCHAR},
+		#{memberinfoPosition,jdbcType=VARCHAR},
+		#{memberinfoNumber,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="kohgylw.model.SysMembermanageMemberinfo">
+		insert into sys_membermanage_memberinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="memberinfoId != null">
+				memberinfo_id,
+			</if>
+			<if test="memberinfoLoginid != null">
+				memberinfo_loginid,
+			</if>
+			<if test="memberinfoPwd != null">
+				memberinfo_pwd,
+			</if>
+			<if test="memberinfoState != null">
+				memberinfo_state,
+			</if>
+			<if test="memberinfoName != null">
+				memberinfo_name,
+			</if>
+			<if test="memberinfoSex != null">
+				memberinfo_sex,
+			</if>
+			<if test="memberinfoEntrydate != null">
+				memberinfo_entrydate,
+			</if>
+			<if test="memberinfoAddress != null">
+				memberinfo_address,
+			</if>
+			<if test="memberinfoPhone != null">
+				memberinfo_phone,
+			</if>
+			<if test="memberinfoEmail != null">
+				memberinfo_email,
+			</if>
+			<if test="memberinfoOthercontact != null">
+				memberinfo_othercontact,
+			</if>
+			<if test="memberinfoEducation != null">
+				memberinfo_education,
+			</if>
+			<if test="memberinfoPhoto != null">
+				memberinfo_photo,
+			</if>
+			<if test="memberinfoPosition != null">
+				memberinfo_position,
+			</if>
+			<if test="memberinfoNumber != null">
+				memberinfo_number,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="memberinfoId != null">
+				#{memberinfoId,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoLoginid != null">
+				#{memberinfoLoginid,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoPwd != null">
+				#{memberinfoPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoState != null">
+				#{memberinfoState,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoName != null">
+				#{memberinfoName,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoSex != null">
+				#{memberinfoSex,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoEntrydate != null">
+				#{memberinfoEntrydate,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoAddress != null">
+				#{memberinfoAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoPhone != null">
+				#{memberinfoPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoEmail != null">
+				#{memberinfoEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoOthercontact != null">
+				#{memberinfoOthercontact,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoEducation != null">
+				#{memberinfoEducation,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoPhoto != null">
+				#{memberinfoPhoto,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoPosition != null">
+				#{memberinfoPosition,jdbcType=VARCHAR},
+			</if>
+			<if test="memberinfoNumber != null">
+				#{memberinfoNumber,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="queryByLoginid" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from sys_membermanage_memberinfo where
+		memberinfo_loginid =
+		#{loginid,jdbcType=VARCHAR}
+	</select>
+	<select id="queryMemberNum" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select count(*) from sys_membermanage_memberinfo where
+		<if test="MemberNum != null and MemberNum != ''">
+			memberinfo_number = #{MemberNum,jdbcType=VARCHAR} and
+		</if>
+		memberinfo_name like #{MemberName,jdbcType=VARCHAR}
+	</select>
+	<select id="queryByPage" resultMap="BaseResultMap">
+		select * from sys_membermanage_memberinfo where
+		<if test="MemberNum != null and MemberNum != ''">
+			memberinfo_number = #{MemberNum,jdbcType=VARCHAR} and
+		</if>
+		memberinfo_name like
+		#{MemberName,jdbcType=VARCHAR} limit
+		#{pno,jdbcType=VARCHAR},#{num,jdbcType=VARCHAR}
+	</select>
+</mapper>

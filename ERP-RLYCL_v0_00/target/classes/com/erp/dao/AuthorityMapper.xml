@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.mapper.AuthorityMapper">
+	<resultMap id="BaseResultMap" type="com.erp.model.Authority">
+		<id column="authority_id" jdbcType="VARCHAR" property="authorityId" />
+		<result column="p_id" jdbcType="VARCHAR" property="pId" />
+		<result column="url" jdbcType="VARCHAR" property="url" />
+		<result column="img" jdbcType="VARCHAR" property="img" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		authority_id, p_id, url, img, name
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from authority
+		where authority_id = #{authorityId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from authority
+		where authority_id = #{authorityId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.erp.model.Authority">
+		insert into authority (authority_id, p_id, url,
+		img, name)
+		values (#{authorityId,jdbcType=VARCHAR}, #{pId,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR},
+		#{img,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.erp.model.Authority">
+		insert into authority
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="authorityId != null">
+				authority_id,
+			</if>
+			<if test="pId != null">
+				p_id,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="img != null">
+				img,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="authorityId != null">
+				#{authorityId,jdbcType=VARCHAR},
+			</if>
+			<if test="pId != null">
+				#{pId,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="img != null">
+				#{img,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.erp.model.Authority">
+		update authority
+		<set>
+			<if test="pId != null">
+				p_id = #{pId,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="img != null">
+				img = #{img,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where authority_id = #{authorityId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.erp.model.Authority">
+		update authority
+		set p_id = #{pId,jdbcType=VARCHAR},
+		url = #{url,jdbcType=VARCHAR},
+		img = #{img,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR}
+		where authority_id = #{authorityId,jdbcType=VARCHAR}
+	</update>
+	<!-- select all data -->
+	<select id="queryAllAuthority" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from authority
+	</select>
+	<!--select By depart -->
+	<select id="selectByDepartment" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT 
+		au.*
+		FROM authority AS au,authority_role AS ar,departments AS dp
+		WHERE au.authority_id=ar.authority_id AND ar.role_id=dp.dep_id
+		AND dp.dep_name=#{department,jdbcType=VARCHAR}
+	</select>
+</mapper>

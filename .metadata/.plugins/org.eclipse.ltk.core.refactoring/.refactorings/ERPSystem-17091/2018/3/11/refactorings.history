@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 6 elements to &apos;webapp&apos;&#x0D;&#x0A;- Original project: &apos;ERPSystem-17091&apos;&#x0D;&#x0A;- Destination element: &apos;webapp&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     css&#x0D;&#x0A;     fonts&#x0D;&#x0A;     images&#x0D;&#x0A;     lib&#x0D;&#x0A;     js&#x0D;&#x0A;     view" description="Copy folders" element1="src/main/webapp/css" element2="src/main/webapp/fonts" element3="src/main/webapp/images" element4="src/main/webapp/lib" element5="src/main/webapp/js" element6="src/main/webapp/view" files="0" flags="589830" folders="6" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1521012945252" target="/ERP-RLYCL_v0_00/src/main/webapp" units="0" version="1.0"/>
+</session>

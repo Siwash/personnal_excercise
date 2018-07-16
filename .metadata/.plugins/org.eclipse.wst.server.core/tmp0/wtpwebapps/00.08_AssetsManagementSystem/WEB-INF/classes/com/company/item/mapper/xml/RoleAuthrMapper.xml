@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.RoleAuthrMapper">
+  <resultMap id="BaseResultMap" type="com.company.item.model.RoleAuthr">
+    <id column="role_authr_id" jdbcType="VARCHAR" property="roleAuthrId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="authr_id" jdbcType="VARCHAR" property="authrId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    role_authr_id, role_id, authr_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role_authr
+    where role_authr_id = #{roleAuthrId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from role_authr
+    where role_authr_id = #{roleAuthrId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.company.item.model.RoleAuthr">
+    insert into role_authr (role_authr_id, role_id, authr_id
+      )
+    values (#{roleAuthrId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{authrId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.item.model.RoleAuthr">
+    insert into role_authr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleAuthrId != null">
+        role_authr_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="authrId != null">
+        authr_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleAuthrId != null">
+        #{roleAuthrId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="authrId != null">
+        #{authrId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.company.item.model.RoleAuthr">
+    update role_authr
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="authrId != null">
+        authr_id = #{authrId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_authr_id = #{roleAuthrId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.company.item.model.RoleAuthr">
+    update role_authr
+    set role_id = #{roleId,jdbcType=VARCHAR},
+      authr_id = #{authrId,jdbcType=VARCHAR}
+    where role_authr_id = #{roleAuthrId,jdbcType=VARCHAR}
+  </update>
+  
+  <!--design by rpf  -->
+  <!--根据role 和authr 删除数据  -->
+  <delete id="deleteByRoleAndAuthr" parameterType="java.lang.String">
+    delete from role_authr
+    where role_id = #{roleId,jdbcType=VARCHAR} 
+    and authr_id = #{authrId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

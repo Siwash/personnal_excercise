@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.MaintainMapper">
+  <resultMap id="BaseResultMap" type="com.company.item.model.Maintain">
+    <id column="maintain_id" jdbcType="VARCHAR" property="maintainId" />
+    <result column="property_name" jdbcType="VARCHAR" property="propertyName" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="maintain_cost" jdbcType="INTEGER" property="maintainCost" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="approve_state" jdbcType="VARCHAR" property="approveState" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    maintain_id, property_name, type, maintain_cost, user_name, approve_state, apply_time, 
+    finish_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from maintain
+    where maintain_id = #{maintainId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from maintain
+    where maintain_id = #{maintainId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.company.item.model.Maintain">
+    insert into maintain (maintain_id, property_name, type, 
+      maintain_cost, user_name, approve_state, 
+      apply_time, finish_time)
+    values (#{maintainId,jdbcType=VARCHAR}, #{propertyName,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{maintainCost,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{approveState,jdbcType=VARCHAR}, 
+      #{applyTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.item.model.Maintain">
+    insert into maintain
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="maintainId != null">
+        maintain_id,
+      </if>
+      <if test="propertyName != null">
+        property_name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="maintainCost != null">
+        maintain_cost,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="approveState != null">
+        approve_state,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="maintainId != null">
+        #{maintainId,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyName != null">
+        #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainCost != null">
+        #{maintainCost,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="approveState != null">
+        #{approveState,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.company.item.model.Maintain">
+    update maintain
+    <set>
+      <if test="propertyName != null">
+        property_name = #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainCost != null">
+        maintain_cost = #{maintainCost,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="approveState != null">
+        approve_state = #{approveState,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where maintain_id = #{maintainId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.company.item.model.Maintain">
+    update maintain
+    set property_name = #{propertyName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      maintain_cost = #{maintainCost,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      approve_state = #{approveState,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP}
+    where maintain_id = #{maintainId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  	<!--查询所有报修申请 -->
+	<select id="queryAllMaintain" parameterType="com.company.item.model.Maintain"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from maintain
+		<where>
+
+			<if test="propertyName != null and propertyName!='' ">
+				and property_name = #{propertyName,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null and type!='' ">
+				and type = #{type,jdbcType=VARCHAR}
+			</if>
+
+		</where>
+	</select>
+</mapper>

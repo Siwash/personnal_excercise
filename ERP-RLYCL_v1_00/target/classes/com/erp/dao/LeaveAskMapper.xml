@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.mapper.LeaveAskMapper">
+  <resultMap id="BaseResultMap" type="com.erp.model.LeaveAsk">
+    <id column="leave_id" jdbcType="VARCHAR" property="leaveId" />
+    <result column="opinion" jdbcType="VARCHAR" property="opinion" />
+    <result column="leave_reason" jdbcType="VARCHAR" property="leaveReason" />
+    <result column="eme_id" jdbcType="VARCHAR" property="emeId" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="ending_time" jdbcType="TIMESTAMP" property="endingTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    leave_id, opinion, leave_reason, eme_id, start_time, ending_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from leave_ask
+    where leave_id = #{leaveId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from leave_ask
+    where leave_id = #{leaveId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.erp.model.LeaveAsk">
+    insert into leave_ask (leave_id, opinion, leave_reason, 
+      eme_id, start_time, ending_time
+      )
+    values (#{leaveId,jdbcType=VARCHAR}, #{opinion,jdbcType=VARCHAR}, #{leaveReason,jdbcType=VARCHAR}, 
+      #{emeId,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endingTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.model.LeaveAsk">
+    insert into leave_ask
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="leaveId != null">
+        leave_id,
+      </if>
+      <if test="opinion != null">
+        opinion,
+      </if>
+      <if test="leaveReason != null">
+        leave_reason,
+      </if>
+      <if test="emeId != null">
+        eme_id,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endingTime != null">
+        ending_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="leaveId != null">
+        #{leaveId,jdbcType=VARCHAR},
+      </if>
+      <if test="opinion != null">
+        #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveReason != null">
+        #{leaveReason,jdbcType=VARCHAR},
+      </if>
+      <if test="emeId != null">
+        #{emeId,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endingTime != null">
+        #{endingTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.model.LeaveAsk">
+    update leave_ask
+    <set>
+      <if test="opinion != null">
+        opinion = #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveReason != null">
+        leave_reason = #{leaveReason,jdbcType=VARCHAR},
+      </if>
+      <if test="emeId != null">
+        eme_id = #{emeId,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endingTime != null">
+        ending_time = #{endingTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where leave_id = #{leaveId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.model.LeaveAsk">
+    update leave_ask
+    set opinion = #{opinion,jdbcType=VARCHAR},
+      leave_reason = #{leaveReason,jdbcType=VARCHAR},
+      eme_id = #{emeId,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      ending_time = #{endingTime,jdbcType=TIMESTAMP}
+    where leave_id = #{leaveId,jdbcType=VARCHAR}
+  </update>
+</mapper>

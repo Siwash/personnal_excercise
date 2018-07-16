@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.DepartmentInfoMapper">
+  <resultMap id="BaseResultMap" type="com.company.item.model.DepartmentInfo">
+    <id column="depart_id" jdbcType="VARCHAR" property="departId" />
+    <result column="depart_name" jdbcType="VARCHAR" property="departName" />
+    <result column="depart_desc" jdbcType="VARCHAR" property="departDesc" />
+    <result column="depart_manager" jdbcType="VARCHAR" property="departManager" />
+  </resultMap>
+  <resultMap id="Ztree" type="com.company.item.pageModel.ZtreeModel">
+    <id column="depart_id" jdbcType="VARCHAR" property="id" />
+    <result column="depart_name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    depart_id, depart_name, depart_desc, depart_manager
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from department_info
+    where depart_id = #{departId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from department_info
+    where depart_id = #{departId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.company.item.model.DepartmentInfo">
+    insert into department_info (depart_id, depart_name, depart_desc, 
+      depart_manager)
+    values (#{departId,jdbcType=VARCHAR}, #{departName,jdbcType=VARCHAR}, #{departDesc,jdbcType=VARCHAR}, 
+      #{departManager,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.item.model.DepartmentInfo">
+    insert into department_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="departId != null">
+        depart_id,
+      </if>
+      <if test="departName != null">
+        depart_name,
+      </if>
+      <if test="departDesc != null">
+        depart_desc,
+      </if>
+      <if test="departManager != null">
+        depart_manager,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="departId != null">
+        #{departId,jdbcType=VARCHAR},
+      </if>
+      <if test="departName != null">
+        #{departName,jdbcType=VARCHAR},
+      </if>
+      <if test="departDesc != null">
+        #{departDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="departManager != null">
+        #{departManager,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.company.item.model.DepartmentInfo">
+    update department_info
+    <set>
+      <if test="departName != null">
+        depart_name = #{departName,jdbcType=VARCHAR},
+      </if>
+      <if test="departDesc != null">
+        depart_desc = #{departDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="departManager != null">
+        depart_manager = #{departManager,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where depart_id = #{departId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.company.item.model.DepartmentInfo">
+    update department_info
+    set depart_name = #{departName,jdbcType=VARCHAR},
+      depart_desc = #{departDesc,jdbcType=VARCHAR},
+      depart_manager = #{departManager,jdbcType=VARCHAR}
+    where depart_id = #{departId,jdbcType=VARCHAR}
+  </update>
+  <!--design by rpf  -->
+  <select id="queryAllDeparts" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from department_info
+  </select>
+  
+  <select id="selectByDepZtree"  resultMap="Ztree">
+    select 
+    depart_id,depart_name
+    from department_info
+  </select>
+  
+  <select id="selectDepartByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select 
+    count(depart_id)
+    from department_info
+    where depart_name = #{departName,jdbcType=VARCHAR}
+  </select>
+</mapper>

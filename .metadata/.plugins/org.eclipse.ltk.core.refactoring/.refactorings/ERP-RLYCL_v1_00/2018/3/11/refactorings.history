@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 4 elements from project &apos;ERP-RLYCL_v1_00&apos;&#x0D;&#x0A;- Original project: &apos;ERP-RLYCL_v1_00&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     ERP-RLYCL_v1_00/src/main/java/com.erp.dao&#x0D;&#x0A;     ERP-RLYCL_v1_00/src/main/java/com.erp.mapper&#x0D;&#x0A;     com.erp.mapper.EmployeeMapper.java&#x0D;&#x0A;     ERP-RLYCL_v1_00/src/main/java/com.erp.model" description="Delete elements" element1="/src\/main\/java&lt;com.erp.model" element2="/src\/main\/java&lt;com.erp.mapper" element3="/src\/main\/java&lt;com.erp.dao" elements="3" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1521077225476" subPackages="false" version="1.0"/>
+</session>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.mapper.ProductTurnoverMapper">
+  <resultMap id="BaseResultMap" type="com.erp.model.ProductTurnover">
+    <id column="Product_turnover_id" jdbcType="VARCHAR" property="productTurnoverId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="product_number" jdbcType="VARCHAR" property="productNumber" />
+    <result column="inventory_time" jdbcType="TIMESTAMP" property="inventoryTime" />
+    <result column="eme_id" jdbcType="VARCHAR" property="emeId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Product_turnover_id, product_id, product_number, inventory_time, eme_id, type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_turnover
+    where Product_turnover_id = #{productTurnoverId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from product_turnover
+    where Product_turnover_id = #{productTurnoverId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.erp.model.ProductTurnover">
+    insert into product_turnover (Product_turnover_id, product_id, product_number, 
+      inventory_time, eme_id, type
+      )
+    values (#{productTurnoverId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{productNumber,jdbcType=VARCHAR}, 
+      #{inventoryTime,jdbcType=TIMESTAMP}, #{emeId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.model.ProductTurnover">
+    insert into product_turnover
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productTurnoverId != null">
+        Product_turnover_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productNumber != null">
+        product_number,
+      </if>
+      <if test="inventoryTime != null">
+        inventory_time,
+      </if>
+      <if test="emeId != null">
+        eme_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productTurnoverId != null">
+        #{productTurnoverId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productNumber != null">
+        #{productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="inventoryTime != null">
+        #{inventoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emeId != null">
+        #{emeId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.model.ProductTurnover">
+    update product_turnover
+    <set>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productNumber != null">
+        product_number = #{productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="inventoryTime != null">
+        inventory_time = #{inventoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emeId != null">
+        eme_id = #{emeId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Product_turnover_id = #{productTurnoverId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.model.ProductTurnover">
+    update product_turnover
+    set product_id = #{productId,jdbcType=VARCHAR},
+      product_number = #{productNumber,jdbcType=VARCHAR},
+      inventory_time = #{inventoryTime,jdbcType=TIMESTAMP},
+      eme_id = #{emeId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
+    where Product_turnover_id = #{productTurnoverId,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="queryProductTurnover" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_turnover
+    
+  </select>
+</mapper>

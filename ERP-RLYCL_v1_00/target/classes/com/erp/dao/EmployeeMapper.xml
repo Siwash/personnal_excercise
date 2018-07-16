@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.mapper.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.erp.model.Employee">
+    <id column="eme_id" jdbcType="VARCHAR" property="emeId" />
+    <result column="eme_name" jdbcType="VARCHAR" property="emeName" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="entry_time" jdbcType="TIMESTAMP" property="entryTime" />
+    <result column="Id_num" jdbcType="VARCHAR" property="idNum" />
+    <result column="eduction" jdbcType="VARCHAR" property="eduction" />
+    <result column="eme_num" jdbcType="VARCHAR" property="emeNum" />
+    <result column="tel_num" jdbcType="VARCHAR" property="telNum" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="job_title" jdbcType="VARCHAR" property="jobTitle" />
+    <result column="Department" jdbcType="VARCHAR" property="department" />
+    <result column="Origin" jdbcType="VARCHAR" property="origin" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    eme_id, eme_name, sex, entry_time, Id_num, eduction, eme_num, tel_num, email, job_title, 
+    Department, Origin, address, description, username, password
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employee
+    where eme_id = #{emeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from employee
+    where eme_id = #{emeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.erp.model.Employee">
+    insert into employee (eme_id, eme_name, sex, 
+      entry_time, Id_num, eduction, 
+      eme_num, tel_num, email, 
+      job_title, Department, Origin, 
+      address, description, username, 
+      password)
+    values (#{emeId,jdbcType=VARCHAR}, #{emeName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{entryTime,jdbcType=TIMESTAMP}, #{idNum,jdbcType=VARCHAR}, #{eduction,jdbcType=VARCHAR}, 
+      #{emeNum,jdbcType=VARCHAR}, #{telNum,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{jobTitle,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{origin,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.model.Employee">
+    insert into employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="emeId != null">
+        eme_id,
+      </if>
+      <if test="emeName != null">
+        eme_name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="entryTime != null">
+        entry_time,
+      </if>
+      <if test="idNum != null">
+        Id_num,
+      </if>
+      <if test="eduction != null">
+        eduction,
+      </if>
+      <if test="emeNum != null">
+        eme_num,
+      </if>
+      <if test="telNum != null">
+        tel_num,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="jobTitle != null">
+        job_title,
+      </if>
+      <if test="department != null">
+        Department,
+      </if>
+      <if test="origin != null">
+        Origin,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="emeId != null">
+        #{emeId,jdbcType=VARCHAR},
+      </if>
+      <if test="emeName != null">
+        #{emeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="entryTime != null">
+        #{entryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idNum != null">
+        #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="eduction != null">
+        #{eduction,jdbcType=VARCHAR},
+      </if>
+      <if test="emeNum != null">
+        #{emeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="telNum != null">
+        #{telNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null">
+        #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null">
+        #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.model.Employee">
+    update employee
+    <set>
+      <if test="emeName != null">
+        eme_name = #{emeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="entryTime != null">
+        entry_time = #{entryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idNum != null">
+        Id_num = #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="eduction != null">
+        eduction = #{eduction,jdbcType=VARCHAR},
+      </if>
+      <if test="emeNum != null">
+        eme_num = #{emeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="telNum != null">
+        tel_num = #{telNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null">
+        job_title = #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        Department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null">
+        Origin = #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where eme_id = #{emeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.model.Employee">
+    update employee
+    set eme_name = #{emeName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      entry_time = #{entryTime,jdbcType=TIMESTAMP},
+      Id_num = #{idNum,jdbcType=VARCHAR},
+      eduction = #{eduction,jdbcType=VARCHAR},
+      eme_num = #{emeNum,jdbcType=VARCHAR},
+      tel_num = #{telNum,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      job_title = #{jobTitle,jdbcType=VARCHAR},
+      Department = #{department,jdbcType=VARCHAR},
+      Origin = #{origin,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where eme_id = #{emeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

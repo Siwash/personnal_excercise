@@ -1,0 +1,95 @@
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring.xml,classpath:spring-shiro-web.xml</param-value>
+	</context-param>
+	
+	
+	<!-- spring提供的转码拦截器，自动转码post请求 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- end -->
+	
+	<!-- 自定义的过滤器用于检测用户身份
+	<filter>
+		<filter-name>CheckUserFilter</filter-name>
+		<filter-class>com.company.item.filter.CheckUserFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CheckUserFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping> -->
+	<!-- end 检测用户身份 -->
+	
+	<!-- spring MVC 核心控制器 -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.ajax</url-pattern>
+	</servlet-mapping>
+	<!-- end MVC -->
+	
+	<!-- IOC 容器初始化 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- end IOC -->
+	<!-- shiro -->
+	
+	<filter>  
+    <filter-name>shiroFilter</filter-name>  
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>  
+    <init-param>  
+        <param-name>targetFilterLifecycle</param-name>  
+        <param-value>true</param-value>  
+    </init-param>  
+</filter>  
+<filter-mapping>  
+    <filter-name>shiroFilter</filter-name>  
+    <url-pattern>/*</url-pattern>  
+</filter-mapping> 
+	<!-- 用于统计在线人数 -->
+	<listener>
+		<listener-class>com.company.item.listener.InitListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.company.item.listener.StatisticsOnline
+		</listener-class>
+	</listener>
+	<!-- end 统计在线人数 -->
+	
+	<!-- 项目主页 -->
+	<welcome-file-list>
+		<welcome-file>indexController/login.do</welcome-file>
+	</welcome-file-list>
+	<!-- end 主页 -->
+	
+	
+</web-app>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.mapper.MaterialPurchaseMapper">
+  <resultMap id="BaseResultMap" type="com.erp.model.MaterialPurchase">
+    <id column="material_purchase_id" jdbcType="VARCHAR" property="materialPurchaseId" />
+    <result column="material_id" jdbcType="VARCHAR" property="materialId" />
+    <result column="eme_id" jdbcType="VARCHAR" property="emeId" />
+    <result column="tracking_number" jdbcType="VARCHAR" property="trackingNumber" />
+    <result column="purchase_price" jdbcType="VARCHAR" property="purchasePrice" />
+    <result column="material_num" jdbcType="VARCHAR" property="materialNum" />
+    <result column="purchase_time" jdbcType="TIMESTAMP" property="purchaseTime" />
+    <result column="opinion" jdbcType="VARCHAR" property="opinion" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    material_purchase_id, material_id, eme_id, tracking_number, purchase_price, material_num, 
+    purchase_time, opinion
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from material_purchase
+    where material_purchase_id = #{materialPurchaseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from material_purchase
+    where material_purchase_id = #{materialPurchaseId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.erp.model.MaterialPurchase">
+    insert into material_purchase (material_purchase_id, material_id, eme_id, 
+      tracking_number, purchase_price, material_num, 
+      purchase_time, opinion)
+    values (#{materialPurchaseId,jdbcType=VARCHAR}, #{materialId,jdbcType=VARCHAR}, #{emeId,jdbcType=VARCHAR}, 
+      #{trackingNumber,jdbcType=VARCHAR}, #{purchasePrice,jdbcType=VARCHAR}, #{materialNum,jdbcType=VARCHAR}, 
+      #{purchaseTime,jdbcType=TIMESTAMP}, #{opinion,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.model.MaterialPurchase">
+    insert into material_purchase
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="materialPurchaseId != null">
+        material_purchase_id,
+      </if>
+      <if test="materialId != null">
+        material_id,
+      </if>
+      <if test="emeId != null">
+        eme_id,
+      </if>
+      <if test="trackingNumber != null">
+        tracking_number,
+      </if>
+      <if test="purchasePrice != null">
+        purchase_price,
+      </if>
+      <if test="materialNum != null">
+        material_num,
+      </if>
+      <if test="purchaseTime != null">
+        purchase_time,
+      </if>
+      <if test="opinion != null">
+        opinion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="materialPurchaseId != null">
+        #{materialPurchaseId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialId != null">
+        #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="emeId != null">
+        #{emeId,jdbcType=VARCHAR},
+      </if>
+      <if test="trackingNumber != null">
+        #{trackingNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasePrice != null">
+        #{purchasePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNum != null">
+        #{materialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTime != null">
+        #{purchaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opinion != null">
+        #{opinion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.model.MaterialPurchase">
+    update material_purchase
+    <set>
+      <if test="materialId != null">
+        material_id = #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="emeId != null">
+        eme_id = #{emeId,jdbcType=VARCHAR},
+      </if>
+      <if test="trackingNumber != null">
+        tracking_number = #{trackingNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasePrice != null">
+        purchase_price = #{purchasePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNum != null">
+        material_num = #{materialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTime != null">
+        purchase_time = #{purchaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opinion != null">
+        opinion = #{opinion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where material_purchase_id = #{materialPurchaseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.model.MaterialPurchase">
+    update material_purchase
+    set material_id = #{materialId,jdbcType=VARCHAR},
+      eme_id = #{emeId,jdbcType=VARCHAR},
+      tracking_number = #{trackingNumber,jdbcType=VARCHAR},
+      purchase_price = #{purchasePrice,jdbcType=VARCHAR},
+      material_num = #{materialNum,jdbcType=VARCHAR},
+      purchase_time = #{purchaseTime,jdbcType=TIMESTAMP},
+      opinion = #{opinion,jdbcType=VARCHAR}
+    where material_purchase_id = #{materialPurchaseId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryAllMaterials" resultMap="BaseResultMap">
+  select * from material_purchase
+  </select>
+   <select id="queryMPLByTnumAndEmeId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from material_purchase
+   <where>
+   		<if test="trackingNumber != null and trackingNumber !=''" >
+        and tracking_number = #{trackingNumber,jdbcType=VARCHAR}
+      	</if>
+      	<if test="emeId != null and emeId !=''" >
+        and eme_id = #{emeId,jdbcType=VARCHAR}
+      	</if>
+   </where>
+  </select>
+  <select id="getPageByTen" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select * from material_purchase limit #{j,jdbcType=VARCHAR},10
+  
+  </select>
+</mapper>

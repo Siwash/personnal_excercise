@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="company.items.mapper.SysUserMapper">
+  
+  <resultMap id="BaseResultMap" type="company.items.model.SysUser">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_sex" jdbcType="VARCHAR" property="userSex" />
+    <result column="user_workid" jdbcType="VARCHAR" property="userWorkid" />
+    <result column="user_enrtydata" jdbcType="VARCHAR" property="userEnrtydata" />
+    <result column="user_bodyid" jdbcType="VARCHAR" property="userBodyid" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_location" jdbcType="VARCHAR" property="userLocation" />
+    <result column="user_emial" jdbcType="VARCHAR" property="userEmial" />
+    <result column="user_othercontact" jdbcType="VARCHAR" property="userOthercontact" />
+    <result column="user_education" jdbcType="VARCHAR" property="userEducation" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, user_account, user_pwd, user_name, user_sex, user_workid, user_enrtydata, 
+    user_bodyid, user_phone, user_location, user_emial, user_othercontact, user_education
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="company.items.model.SysUser">
+    insert into sys_user (user_id, user_account, user_pwd, 
+      user_name, user_sex, user_workid, 
+      user_enrtydata, user_bodyid, user_phone, 
+      user_location, user_emial, user_othercontact, 
+      user_education)
+    values (#{userId,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userSex,jdbcType=VARCHAR}, #{userWorkid,jdbcType=VARCHAR}, 
+      #{userEnrtydata,jdbcType=VARCHAR}, #{userBodyid,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userLocation,jdbcType=VARCHAR}, #{userEmial,jdbcType=VARCHAR}, #{userOthercontact,jdbcType=VARCHAR}, 
+      #{userEducation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="company.items.model.SysUser">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="userPwd != null">
+        user_pwd,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="userWorkid != null">
+        user_workid,
+      </if>
+      <if test="userEnrtydata != null">
+        user_enrtydata,
+      </if>
+      <if test="userBodyid != null">
+        user_bodyid,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userLocation != null">
+        user_location,
+      </if>
+      <if test="userEmial != null">
+        user_emial,
+      </if>
+      <if test="userOthercontact != null">
+        user_othercontact,
+      </if>
+      <if test="userEducation != null">
+        user_education,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userWorkid != null">
+        #{userWorkid,jdbcType=VARCHAR},
+      </if>
+      <if test="userEnrtydata != null">
+        #{userEnrtydata,jdbcType=VARCHAR},
+      </if>
+      <if test="userBodyid != null">
+        #{userBodyid,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userLocation != null">
+        #{userLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmial != null">
+        #{userEmial,jdbcType=VARCHAR},
+      </if>
+      <if test="userOthercontact != null">
+        #{userOthercontact,jdbcType=VARCHAR},
+      </if>
+      <if test="userEducation != null">
+        #{userEducation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="company.items.model.SysUser">
+    update sys_user
+    <set>
+      <if test="userAccount != null">
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userWorkid != null">
+        user_workid = #{userWorkid,jdbcType=VARCHAR},
+      </if>
+      <if test="userEnrtydata != null">
+        user_enrtydata = #{userEnrtydata,jdbcType=VARCHAR},
+      </if>
+      <if test="userBodyid != null">
+        user_bodyid = #{userBodyid,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userLocation != null">
+        user_location = #{userLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmial != null">
+        user_emial = #{userEmial,jdbcType=VARCHAR},
+      </if>
+      <if test="userOthercontact != null">
+        user_othercontact = #{userOthercontact,jdbcType=VARCHAR},
+      </if>
+      <if test="userEducation != null">
+        user_education = #{userEducation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="company.items.model.SysUser">
+    update sys_user
+    set user_account = #{userAccount,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=VARCHAR},
+      user_workid = #{userWorkid,jdbcType=VARCHAR},
+      user_enrtydata = #{userEnrtydata,jdbcType=VARCHAR},
+      user_bodyid = #{userBodyid,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_location = #{userLocation,jdbcType=VARCHAR},
+      user_emial = #{userEmial,jdbcType=VARCHAR},
+      user_othercontact = #{userOthercontact,jdbcType=VARCHAR},
+      user_education = #{userEducation,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <!--自定义查询 账号  -->
+  <select id="selectByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </select>
+</mapper>

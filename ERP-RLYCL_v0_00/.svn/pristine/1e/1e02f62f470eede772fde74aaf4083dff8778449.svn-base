@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.mapper.MaterialsRecordListMapper">
+  <resultMap id="BaseResultMap" type="com.erp.model.MaterialsRecordList">
+    <id column="recordList_id" jdbcType="VARCHAR" property="recordlistId" />
+    <result column="material_id" jdbcType="VARCHAR" property="materialId" />
+    <result column="material_num" jdbcType="VARCHAR" property="materialNum" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="material_type" jdbcType="VARCHAR" property="materialType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    recordList_id, material_id, material_num, record_time, material_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from materials_record_list
+    where recordList_id = #{recordlistId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from materials_record_list
+    where recordList_id = #{recordlistId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.erp.model.MaterialsRecordList">
+    insert into materials_record_list (recordList_id, material_id, material_num, 
+      record_time, material_type)
+    values (#{recordlistId,jdbcType=VARCHAR}, #{materialId,jdbcType=VARCHAR}, #{materialNum,jdbcType=VARCHAR}, 
+      #{recordTime,jdbcType=TIMESTAMP}, #{materialType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.model.MaterialsRecordList">
+    insert into materials_record_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordlistId != null">
+        recordList_id,
+      </if>
+      <if test="materialId != null">
+        material_id,
+      </if>
+      <if test="materialNum != null">
+        material_num,
+      </if>
+      <if test="recordTime != null">
+        record_time,
+      </if>
+      <if test="materialType != null">
+        material_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordlistId != null">
+        #{recordlistId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialId != null">
+        #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNum != null">
+        #{materialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="materialType != null">
+        #{materialType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.model.MaterialsRecordList">
+    update materials_record_list
+    <set>
+      <if test="materialId != null">
+        material_id = #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNum != null">
+        material_num = #{materialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="materialType != null">
+        material_type = #{materialType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where recordList_id = #{recordlistId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.model.MaterialsRecordList">
+    update materials_record_list
+    set material_id = #{materialId,jdbcType=VARCHAR},
+      material_num = #{materialNum,jdbcType=VARCHAR},
+      record_time = #{recordTime,jdbcType=TIMESTAMP},
+      material_type = #{materialType,jdbcType=VARCHAR}
+    where recordList_id = #{recordlistId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.mapper.SalesRecordMapper">
+  <resultMap id="BaseResultMap" type="com.erp.model.SalesRecord">
+    <id column="sales_record_id" jdbcType="VARCHAR" property="salesRecordId" />
+    <result column="eme_id" jdbcType="VARCHAR" property="emeId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="sales_num" jdbcType="VARCHAR" property="salesNum" />
+    <result column="sales_status" jdbcType="VARCHAR" property="salesStatus" />
+    <result column="sales_time" jdbcType="TIMESTAMP" property="salesTime" />
+    <result column="sales_price" jdbcType="VARCHAR" property="salesPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sales_record_id, eme_id, product_id, sales_num, sales_status, sales_time, sales_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sales_record
+    where sales_record_id = #{salesRecordId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sales_record
+    where sales_record_id = #{salesRecordId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.erp.model.SalesRecord">
+    insert into sales_record (sales_record_id, eme_id, product_id, 
+      sales_num, sales_status, sales_time, 
+      sales_price)
+    values (#{salesRecordId,jdbcType=VARCHAR}, #{emeId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, 
+      #{salesNum,jdbcType=VARCHAR}, #{salesStatus,jdbcType=VARCHAR}, #{salesTime,jdbcType=TIMESTAMP}, 
+      #{salesPrice,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.model.SalesRecord">
+    insert into sales_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="salesRecordId != null">
+        sales_record_id,
+      </if>
+      <if test="emeId != null">
+        eme_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="salesNum != null">
+        sales_num,
+      </if>
+      <if test="salesStatus != null">
+        sales_status,
+      </if>
+      <if test="salesTime != null">
+        sales_time,
+      </if>
+      <if test="salesPrice != null">
+        sales_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="salesRecordId != null">
+        #{salesRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="emeId != null">
+        #{emeId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="salesNum != null">
+        #{salesNum,jdbcType=VARCHAR},
+      </if>
+      <if test="salesStatus != null">
+        #{salesStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="salesTime != null">
+        #{salesTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salesPrice != null">
+        #{salesPrice,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.model.SalesRecord">
+    update sales_record
+    <set>
+      <if test="emeId != null">
+        eme_id = #{emeId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="salesNum != null">
+        sales_num = #{salesNum,jdbcType=VARCHAR},
+      </if>
+      <if test="salesStatus != null">
+        sales_status = #{salesStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="salesTime != null">
+        sales_time = #{salesTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salesPrice != null">
+        sales_price = #{salesPrice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sales_record_id = #{salesRecordId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.model.SalesRecord">
+    update sales_record
+    set eme_id = #{emeId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      sales_num = #{salesNum,jdbcType=VARCHAR},
+      sales_status = #{salesStatus,jdbcType=VARCHAR},
+      sales_time = #{salesTime,jdbcType=TIMESTAMP},
+      sales_price = #{salesPrice,jdbcType=VARCHAR}
+    where sales_record_id = #{salesRecordId,jdbcType=VARCHAR}
+  </update>
+</mapper>

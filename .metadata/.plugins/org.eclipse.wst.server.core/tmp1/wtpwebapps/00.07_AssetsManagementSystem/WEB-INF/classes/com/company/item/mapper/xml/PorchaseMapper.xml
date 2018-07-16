@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.PorchaseMapper">
+  <resultMap id="BaseResultMap" type="com.company.item.model.Porchase">
+    <id column="porchase_id" jdbcType="VARCHAR" property="porchaseId" />
+    <result column="property_name" jdbcType="VARCHAR" property="propertyName" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="property_num" jdbcType="INTEGER" property="propertyNum" />
+    <result column="property_prece" jdbcType="INTEGER" property="propertyPrece" />
+    <result column="property_totalprece" jdbcType="INTEGER" property="propertyTotalprece" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="approve_state" jdbcType="VARCHAR" property="approveState" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    porchase_id, property_name, type, property_num, property_prece, property_totalprece, 
+    user_name, approve_state, apply_time, finish_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from porchase
+    where porchase_id = #{porchaseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from porchase
+    where porchase_id = #{porchaseId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.company.item.model.Porchase">
+    insert into porchase (porchase_id, property_name, type, 
+      property_num, property_prece, property_totalprece, 
+      user_name, approve_state, apply_time, 
+      finish_time)
+    values (#{porchaseId,jdbcType=VARCHAR}, #{propertyName,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{propertyNum,jdbcType=INTEGER}, #{propertyPrece,jdbcType=INTEGER}, #{propertyTotalprece,jdbcType=INTEGER}, 
+      #{userName,jdbcType=VARCHAR}, #{approveState,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{finishTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.item.model.Porchase">
+    insert into porchase
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="porchaseId != null">
+        porchase_id,
+      </if>
+      <if test="propertyName != null">
+        property_name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="propertyNum != null">
+        property_num,
+      </if>
+      <if test="propertyPrece != null">
+        property_prece,
+      </if>
+      <if test="propertyTotalprece != null">
+        property_totalprece,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="approveState != null">
+        approve_state,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="porchaseId != null">
+        #{porchaseId,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyName != null">
+        #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyNum != null">
+        #{propertyNum,jdbcType=INTEGER},
+      </if>
+      <if test="propertyPrece != null">
+        #{propertyPrece,jdbcType=INTEGER},
+      </if>
+      <if test="propertyTotalprece != null">
+        #{propertyTotalprece,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="approveState != null">
+        #{approveState,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.company.item.model.Porchase">
+    update porchase
+    <set>
+      <if test="propertyName != null">
+        property_name = #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyNum != null">
+        property_num = #{propertyNum,jdbcType=INTEGER},
+      </if>
+      <if test="propertyPrece != null">
+        property_prece = #{propertyPrece,jdbcType=INTEGER},
+      </if>
+      <if test="propertyTotalprece != null">
+        property_totalprece = #{propertyTotalprece,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="approveState != null">
+        approve_state = #{approveState,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where porchase_id = #{porchaseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.company.item.model.Porchase">
+    update porchase
+    set property_name = #{propertyName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      property_num = #{propertyNum,jdbcType=INTEGER},
+      property_prece = #{propertyPrece,jdbcType=INTEGER},
+      property_totalprece = #{propertyTotalprece,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      approve_state = #{approveState,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP}
+    where porchase_id = #{porchaseId,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 查询该员工的所有申请单 -->
+	<select id="getAllPorchaseByUserName" parameterType="com.company.item.model.Porchase"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from porchase
+		<where>
+			and user_name = #{userName,jdbcType=VARCHAR}
+			<if test="propertyName != null and propertyName!='' ">
+				and property_name = #{propertyName,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<!-- 申请状态修改 -->
+	<update id="updateState" parameterType="com.company.item.model.Porchase">
+		update porchase
+		set
+		approve_state =#{approveState,jdbcType=VARCHAR}
+		where porchase_id =
+		#{porchaseId,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 查询所有申请单 -->
+	<select id="queryAllPorchases" parameterType="com.company.item.model.Porchase"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from porchase
+		<where>
+			<if test="propertyName != null and propertyName!='' ">
+				and property_name = #{propertyName,jdbcType=VARCHAR}
+			</if>
+			<if test="userName != null and userName!='' ">
+				and user_name = #{userName,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<!-- 采购核算 -->
+	<select id="quaryPorchasesBytime" resultMap="BaseResultMap">
+
+		select * from
+		porchase where finish_time between #{time1,jdbcType=VARCHAR}
+		and
+		#{time2,jdbcType=VARCHAR}
+	</select>
+</mapper>

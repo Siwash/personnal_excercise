@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.StructureMapper">
+  <resultMap id="BaseResultMap" type="com.company.item.model.Structure">
+    <id column="structure_id" jdbcType="INTEGER" property="structureId" />
+    <result column="structure_pid" jdbcType="INTEGER" property="structurePid" />
+    <result column="structure_description" jdbcType="VARCHAR" property="structureDescription" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    structure_id, structure_pid, structure_description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from structure
+    where structure_id = #{structureId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from structure
+    where structure_id = #{structureId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.company.item.model.Structure">
+    insert into structure (structure_id, structure_pid, structure_description
+      )
+    values (#{structureId,jdbcType=INTEGER}, #{structurePid,jdbcType=INTEGER}, #{structureDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.item.model.Structure">
+    insert into structure
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="structureId != null">
+        structure_id,
+      </if>
+      <if test="structurePid != null">
+        structure_pid,
+      </if>
+      <if test="structureDescription != null">
+        structure_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="structureId != null">
+        #{structureId,jdbcType=INTEGER},
+      </if>
+      <if test="structurePid != null">
+        #{structurePid,jdbcType=INTEGER},
+      </if>
+      <if test="structureDescription != null">
+        #{structureDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.company.item.model.Structure">
+    update structure
+    <set>
+      <if test="structurePid != null">
+        structure_pid = #{structurePid,jdbcType=INTEGER},
+      </if>
+      <if test="structureDescription != null">
+        structure_description = #{structureDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where structure_id = #{structureId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.company.item.model.Structure">
+    update structure
+    set structure_pid = #{structurePid,jdbcType=INTEGER},
+      structure_description = #{structureDescription,jdbcType=VARCHAR}
+    where structure_id = #{structureId,jdbcType=INTEGER}
+  </update>
+</mapper>

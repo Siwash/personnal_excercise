@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kohgylw.mapper.SysMembermanageLoginlogMapper">
+  <resultMap id="BaseResultMap" type="kohgylw.model.SysMembermanageLoginlog">
+    <result column="loginlog_id" jdbcType="VARCHAR" property="loginlogId" />
+    <result column="memberinfo_id" jdbcType="VARCHAR" property="memberinfoId" />
+    <result column="loginlog_date" jdbcType="VARCHAR" property="loginlogDate" />
+    <result column="loginlog_ip" jdbcType="VARCHAR" property="loginlogIp" />
+  </resultMap>
+  <insert id="insert" parameterType="kohgylw.model.SysMembermanageLoginlog">
+    insert into sys_membermanage_loginlog (loginlog_id, memberinfo_id, loginlog_date, 
+      loginlog_ip)
+    values (#{loginlogId,jdbcType=VARCHAR}, #{memberinfoId,jdbcType=VARCHAR}, #{loginlogDate,jdbcType=VARCHAR}, 
+      #{loginlogIp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="kohgylw.model.SysMembermanageLoginlog">
+    insert into sys_membermanage_loginlog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="loginlogId != null">
+        loginlog_id,
+      </if>
+      <if test="memberinfoId != null">
+        memberinfo_id,
+      </if>
+      <if test="loginlogDate != null">
+        loginlog_date,
+      </if>
+      <if test="loginlogIp != null">
+        loginlog_ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="loginlogId != null">
+        #{loginlogId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberinfoId != null">
+        #{memberinfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginlogDate != null">
+        #{loginlogDate,jdbcType=VARCHAR},
+      </if>
+      <if test="loginlogIp != null">
+        #{loginlogIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

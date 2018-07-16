@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.ApplyMapper">
+  <resultMap id="BaseResultMap" type="com.company.item.model.Apply">
+    <id column="apply_id" jdbcType="VARCHAR" property="applyId" />
+    <result column="property_name" jdbcType="VARCHAR" property="propertyName" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="property_num" jdbcType="INTEGER" property="propertyNum" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="apply_state" jdbcType="VARCHAR" property="applyState" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="sestore_time" jdbcType="TIMESTAMP" property="sestoreTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    apply_id, property_name, type, property_num, user_name, apply_state, apply_time, 
+    sestore_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from apply
+    where apply_id = #{applyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from apply
+    where apply_id = #{applyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.company.item.model.Apply">
+    insert into apply (apply_id, property_name, type, 
+      property_num, user_name, apply_state, 
+      apply_time, sestore_time)
+    values (#{applyId,jdbcType=VARCHAR}, #{propertyName,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{propertyNum,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{applyState,jdbcType=VARCHAR}, 
+      #{applyTime,jdbcType=TIMESTAMP}, #{sestoreTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.item.model.Apply">
+    insert into apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        apply_id,
+      </if>
+      <if test="propertyName != null">
+        property_name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="propertyNum != null">
+        property_num,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="applyState != null">
+        apply_state,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="sestoreTime != null">
+        sestore_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyName != null">
+        #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyNum != null">
+        #{propertyNum,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyState != null">
+        #{applyState,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sestoreTime != null">
+        #{sestoreTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.company.item.model.Apply">
+    update apply
+    <set>
+      <if test="propertyName != null">
+        property_name = #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyNum != null">
+        property_num = #{propertyNum,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyState != null">
+        apply_state = #{applyState,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sestoreTime != null">
+        sestore_time = #{sestoreTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where apply_id = #{applyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.company.item.model.Apply">
+    update apply
+    set property_name = #{propertyName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      property_num = #{propertyNum,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      apply_state = #{applyState,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      sestore_time = #{sestoreTime,jdbcType=TIMESTAMP}
+    where apply_id = #{applyId,jdbcType=VARCHAR}
+  </update>
+  
+  
+	<!--查询每页申请 -->
+	<select id="quaryApply" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from apply
+		limit #{nn,jdbcType=INTEGER},3
+	</select>
+
+	<!--查询所有申请 -->
+	<select id="queryAllPorchases" parameterType="com.company.item.model.Apply"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from apply
+		<where>
+
+			<if test="propertyName != null and propertyName!='' ">
+				and property_name = #{propertyName,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null and type!='' ">
+				and type = #{type,jdbcType=VARCHAR}
+			</if>
+
+		</where>
+	</select>
+
+
+	<!--查询所有申请 -->
+	<select id="queryAllPorchase" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from apply
+
+	</select>
+	
+	
+	    <!--查询登录用户所有申请  -->
+  <select id="getAllApplyByUsername" parameterType="com.company.item.model.Apply" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from apply
+  	<where>
+			
+			and user_name = #{userName,jdbcType=VARCHAR}
+			
+			and apply_state = #{applyState,jdbcType=VARCHAR}
+			
+			<if test="propertyName != null and propertyName!='' ">
+				and property_name = #{propertyName,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null and type!='' ">
+				and type = #{type,jdbcType=VARCHAR}
+			</if>
+
+		</where>
+  </select>
+</mapper>

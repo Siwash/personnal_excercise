@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="generate">
+  <target name="generate">
+    <mybatis.generate configfile="E:\QQDownload\496690402\FileRecv\00.02_AssetsManagementSystem\src\main\resources\generatorConfig.xml" />
+  </target>
+</project>

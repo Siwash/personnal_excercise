@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.PositionMapper">
+  <resultMap id="BaseResultMap" type="com.company.item.model.Position">
+    <id column="position_id" jdbcType="VARCHAR" property="positionId" />
+    <result column="position_name" jdbcType="VARCHAR" property="positionName" />
+    <result column="position_description" jdbcType="VARCHAR" property="positionDescription" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    position_id, position_name, position_description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from position
+    where position_id = #{positionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from position
+    where position_id = #{positionId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.company.item.model.Position">
+    insert into position (position_id, position_name, position_description
+      )
+    values (#{positionId,jdbcType=VARCHAR}, #{positionName,jdbcType=VARCHAR}, #{positionDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.item.model.Position">
+    insert into position
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="positionId != null">
+        position_id,
+      </if>
+      <if test="positionName != null">
+        position_name,
+      </if>
+      <if test="positionDescription != null">
+        position_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="positionId != null">
+        #{positionId,jdbcType=VARCHAR},
+      </if>
+      <if test="positionName != null">
+        #{positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="positionDescription != null">
+        #{positionDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.company.item.model.Position">
+    update position
+    <set>
+      <if test="positionName != null">
+        position_name = #{positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="positionDescription != null">
+        position_description = #{positionDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where position_id = #{positionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.company.item.model.Position">
+    update position
+    set position_name = #{positionName,jdbcType=VARCHAR},
+      position_description = #{positionDescription,jdbcType=VARCHAR}
+    where position_id = #{positionId,jdbcType=VARCHAR}
+  </update>
+</mapper>

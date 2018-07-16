@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.mapper.AuthorityRoleMapper">
+  <resultMap id="BaseResultMap" type="com.erp.model.AuthorityRole">
+    <id column="authority_role_id" jdbcType="VARCHAR" property="authorityRoleId" />
+    <result column="authority_id" jdbcType="VARCHAR" property="authorityId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    authority_role_id, authority_id, role_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from authority_role
+    where authority_role_id = #{authorityRoleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from authority_role
+    where authority_role_id = #{authorityRoleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.erp.model.AuthorityRole">
+    insert into authority_role (authority_role_id, authority_id, role_id
+      )
+    values (#{authorityRoleId,jdbcType=VARCHAR}, #{authorityId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.model.AuthorityRole">
+    insert into authority_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authorityRoleId != null">
+        authority_role_id,
+      </if>
+      <if test="authorityId != null">
+        authority_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authorityRoleId != null">
+        #{authorityRoleId,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityId != null">
+        #{authorityId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.model.AuthorityRole">
+    update authority_role
+    <set>
+      <if test="authorityId != null">
+        authority_id = #{authorityId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where authority_role_id = #{authorityRoleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.model.AuthorityRole">
+    update authority_role
+    set authority_id = #{authorityId,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=VARCHAR}
+    where authority_role_id = #{authorityRoleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

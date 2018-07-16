@@ -1,0 +1,29 @@
+.stock_commodity_search{
+	width: 100%;
+	height: auto;
+}
+
+.stock_commodity_title{
+	width: 100%;
+	height: auto;
+	margin: 5px 0;
+	overflow: hidden;
+}
+
+.stock_commodity_title h4{
+	float: left;
+	font-weight: bold;
+	padding: 5px 0;
+	margin: 0;
+}
+
+.search_btn{
+	width: 100px;
+	background: url("../img/btn_bg.png");
+	color: white;
+	border: none;
+}
+
+.search_type{
+	width: 200px;
+}

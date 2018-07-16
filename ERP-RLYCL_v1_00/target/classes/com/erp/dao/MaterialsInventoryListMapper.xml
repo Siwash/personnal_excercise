@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.mapper.MaterialsInventoryListMapper">
+  <resultMap id="BaseResultMap" type="com.erp.model.MaterialsInventoryList">
+    <id column="m_inventory_id" jdbcType="VARCHAR" property="mInventoryId" />
+    <result column="material_id" jdbcType="VARCHAR" property="materialId" />
+    <result column="repertory_num" jdbcType="VARCHAR" property="repertoryNum" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    m_inventory_id, material_id, repertory_num, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from materials_inventory_list
+    where m_inventory_id = #{mInventoryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from materials_inventory_list
+    where m_inventory_id = #{mInventoryId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.erp.model.MaterialsInventoryList">
+    insert into materials_inventory_list (m_inventory_id, material_id, repertory_num, 
+      status)
+    values (#{mInventoryId,jdbcType=VARCHAR}, #{materialId,jdbcType=VARCHAR}, #{repertoryNum,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.model.MaterialsInventoryList">
+    insert into materials_inventory_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mInventoryId != null">
+        m_inventory_id,
+      </if>
+      <if test="materialId != null">
+        material_id,
+      </if>
+      <if test="repertoryNum != null">
+        repertory_num,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mInventoryId != null">
+        #{mInventoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialId != null">
+        #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="repertoryNum != null">
+        #{repertoryNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.model.MaterialsInventoryList">
+    update materials_inventory_list
+    <set>
+      <if test="materialId != null">
+        material_id = #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="repertoryNum != null">
+        repertory_num = #{repertoryNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where m_inventory_id = #{mInventoryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.model.MaterialsInventoryList">
+    update materials_inventory_list
+    set material_id = #{materialId,jdbcType=VARCHAR},
+      repertory_num = #{repertoryNum,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where m_inventory_id = #{mInventoryId,jdbcType=VARCHAR}
+  </update>
+</mapper>

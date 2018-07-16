@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.item.mapper.AuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.company.item.model.Authority">
+    <id column="authority_id" jdbcType="VARCHAR" property="authorityId" />
+    <result column="authority_pid" jdbcType="VARCHAR" property="authorityPid" />
+    <result column="authority_name" jdbcType="VARCHAR" property="authorityName" />
+    <result column="authority_description" jdbcType="VARCHAR" property="authorityDescription" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    authority_id, authority_pid, authority_name, authority_description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+    where authority_id = #{authorityId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from authority
+    where authority_id = #{authorityId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.company.item.model.Authority">
+    insert into authority (authority_id, authority_pid, authority_name, 
+      authority_description)
+    values (#{authorityId,jdbcType=VARCHAR}, #{authorityPid,jdbcType=VARCHAR}, #{authorityName,jdbcType=VARCHAR}, 
+      #{authorityDescription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.item.model.Authority">
+    insert into authority
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
+        authority_id,
+      </if>
+      <if test="authorityPid != null">
+        authority_pid,
+      </if>
+      <if test="authorityName != null">
+        authority_name,
+      </if>
+      <if test="authorityDescription != null">
+        authority_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
+        #{authorityId,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityPid != null">
+        #{authorityPid,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityName != null">
+        #{authorityName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityDescription != null">
+        #{authorityDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.company.item.model.Authority">
+    update authority
+    <set>
+      <if test="authorityPid != null">
+        authority_pid = #{authorityPid,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityName != null">
+        authority_name = #{authorityName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityDescription != null">
+        authority_description = #{authorityDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where authority_id = #{authorityId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.company.item.model.Authority">
+    update authority
+    set authority_pid = #{authorityPid,jdbcType=VARCHAR},
+      authority_name = #{authorityName,jdbcType=VARCHAR},
+      authority_description = #{authorityDescription,jdbcType=VARCHAR}
+    where authority_id = #{authorityId,jdbcType=VARCHAR}
+  </update>
+  
+  <!--define By rpf  -->
+  <!--shiro 初始化查询所有权限  -->
+  <select id="selectByUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT authority.authority_id,
+     authority.authority_pid,
+     authority.authority_name,
+     authority.authority_description
+    from `user` JOIN  department_info ON `user`.user_departement=department_info.depart_id 
+	JOIN  role_authr ON role_authr.role_id=department_info.depart_id 
+	JOIN authority ON authority.authority_id=role_authr.authr_id 
+	WHERE `user`.user_id=#{userId,jdbcType=VARCHAR}
+  </select>
+  <!--查询部门的权限  -->
+  <select id="selectByDepart" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select authority.* 
+	FROM authority JOIN role_authr ON authority.authority_id=role_authr.authr_id 
+	JOIN department_info ON department_info.depart_id=role_authr.role_id
+	WHERE depart_id=#{departId,jdbcType=VARCHAR}
+  </select>
+  <!--查询所有的权限  -->
+    <select id="selectAllAuthrs" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+  </select>
+</mapper>
